@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+
+{% block title %}Dress Analysis & Fit Results{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+  {% if error %}
+    <div class="bg-red-100 border border-red-300 text-red-800 px-4 py-3 rounded-lg mb-6 flex items-center gap-2">
+      <i class="fas fa-exclamation-triangle"></i>
+      <span>{{ error_message }}</span>
+    </div>
+  {% else %}
+
+  {# ---------- Fabric Analysis Conclusion ---------- #}
+  {% if analysis and analysis.Conclusion %}
+    <div class="bg-white border border-gray-300 rounded-2xl shadow mb-6">
+      <div class="bg-gray-900 text-white px-6 py-3 rounded-t-2xl">
+        <h2 class="text-lg font-semibold">Final Conclusion</h2>
+      </div>
+      <div class="p-6">
+        <p class="text-base text-gray-700 leading-relaxed">{{ analysis.Conclusion }}</p>
+      </div>
+    </div>
+  {% endif %}
+
+  <!-- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for section, result in analysis.items() %}
+      {% if section != "Conclusion" %}
+        <div class="bg-white rounded-2xl shadow border border-gray-200 flex flex-col">
+          <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
+            <h5 class="text-base font-semibold text-gray-800 flex items-center gap-2">
+              <i class="fas fa-chart-bar text-gray-600"></i>
+              {{ section.replace('_', ' ').title() }}
+            </h5>
+          </div>
+          <div class="p-4 flex-1">
+            {% if result.error %}
+              <div class="bg-red-50 text-red-700 text-sm px-3 py-2 rounded flex items-center gap-2">
+                <i class="fas fa-exclamation-circle"></i>{{ result.error }}
+              </div>
+            {% else %}
+              <div class="space-y-3">
+                {% for key, value in result.items() %}
+                  {% if value != 'skipped' and not key.endswith('_summary') and key != 'error' %}
+                    {% if value is mapping %}
+                      <div>
+                        <h6 class="text-xs text-gray-500 mb-1">{{ key.replace('_', ' ').title() }}</h6>
+                        <ul class="space-y-1 pl-4">
+                          {% for sub_key, sub_value in value.items() %}
+                            {% if sub_value != 'skipped' %}
+                              <li class="flex justify-between text-sm">
+                                <span>{{ sub_key.replace('_', ' ').title() }}:</span>
+                                <span class="{% if sub_value == 'yes' %}text-green-600 font-semibold
+                                              {% elif sub_value == 'no' %}text-gray-500
+                                              {% else %}text-blue-600{% endif %}">
+                                  {{ sub_value }}
+                                </span>
+                              </li>
+                            {% endif %}
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    {% else %}
+                      <div>
+                        <div class="flex justify-between text-sm">
+                          <span>{{ key.replace('_', ' ').title() }}:</span>
+                          <span class="{% if value == 'yes' %}text-green-600 font-semibold
+                                        {% elif value == 'no' %}text-gray-500
+                                        {% else %}text-blue-600{% endif %}">
+                            {{ value }}
+                          </span>
+                        </div>
+                        {% set summary_key = key + '_summary' %}
+                        {% if result.get(summary_key) %}
+                          <p class="text-xs text-gray-500 mt-1">
+                            {{ result[summary_key] }}
+                          </p>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div> -->
+
+  
+  {% if results %}
+    <hr class="my-8 border-gray-300">
+    <h2 class="text-xl font-bold text-gray-900 mb-6">Fit Analysis Report</h2>
+
+    <!-- # <div class="flex flex-col lg:flex-row gap-6 mb-6">
+    #   <div class="flex-1">
+    #     <img src="{{ url_for('static', filename='fashn_output/try_on_output.jpg') }}"
+    #          alt="Try-On Output"
+    #          class="w-full h-auto object-cover rounded-lg shadow">
+    #   </div> -->
+
+      <!-- <div class="flex-1 bg-white rounded-2xl shadow p-6">
+        <div class="grid grid-cols-2 gap-x-6 gap-y-4">
+          {% for key, value in results.items() %}
+            {% if not key.endswith('_summary') and key != 'Final_Conclusion' %}
+              <!-- <div>
+                <h3 class="text-xs font-medium text-gray-500">{{ key }}</h3>
+                <p class="text-sm text-gray-900">{{ value }}</p>
+              </div> -->
+            {% endif %}
+          {% endfor %} -->
+
+          <div class="col-span-2 border-t border-gray-200 pt-4 mt-4">
+            <h3 class="text-sm font-semibold text-gray-800 mb-2">Conclusion</h3>
+            <p class="text-sm text-gray-700 leading-relaxed">
+              {{ results.Final_Conclusion_summary | safe }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- 
+    {% if output %}
+      <div class="mt-8">
+        <h2 class="text-lg font-semibold text-gray-900 mb-2">Try-On Analysis</h2>
+        <p class="text-sm text-gray-700 leading-relaxed">{{ output | safe }}</p>
+      </div>
+    {% endif %} -->
+
+    <!-- {% if final_replicate_prompts %}
+  <hr class="my-6 border-gray-300">
+  <h2 class="text-lg font-semibold text-gray-900 mb-4">Final Replicate Prompts</h2>
+  <div class="bg-white rounded-2xl shadow p-6 space-y-4">
+    {% for tag, prompt in final_replicate_prompts.items() %}
+      <div>
+        <h5 class="text-sm font-medium text-gray-700">{{ tag.replace('_', ' ').title() }}</h5>
+        <p class="text-sm text-gray-800 whitespace-pre-line">{{ prompt }}</p>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %} -->
+
+<!-- 
+    {% if modification_prompts %}
+  <hr class="my-6 border-gray-300">
+  <h2 class="text-lg font-semibold text-gray-900 mb-4">Modification Prompts</h2>
+  <div class="bg-white rounded-2xl shadow p-6 space-y-4">
+    {% for tag, prompt in modification_prompts.items() %}
+      <div>
+        <h5 class="text-sm font-medium text-gray-700">{{ tag.replace('_', ' ').title() }}</h5>
+        <p class="text-sm text-gray-800 whitespace-pre-line">{{ prompt }}</p>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %} -->
+
+
+    <!-- {% if tagged_images %}
+      <div class="mt-6 bg-white rounded-2xl shadow p-6 text-center">
+        <h4 class="font-semibold text-gray-900 mb-4">Replicate Output Images</h4>
+        {% for tag, images in tagged_images.items() %}
+          <div class="mb-6">
+            <h5 class="text-lg font-medium text-gray-800 mb-2">{{ tag }}</h5>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {% for img in images %}
+                <div class="bg-gray-50 rounded-lg shadow-sm p-2">
+                  
+                  <img src="{{ img }}" alt="{{ tag }}" class="mx-auto max-w-full h-auto border border-gray-200 rounded-lg shadow-sm">
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %} -->
+  {% endif %}
+
+  <div class="text-center mt-8">
+    <a href="{{ url_for('index') }}"
+       class="inline-flex items-center gap-2 bg-gray-900 text-white text-sm font-medium px-5 py-2.5 rounded-lg shadow hover:bg-gray-800 transition">
+      <i class="fas fa-plus"></i> New Analysis
+    </a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
