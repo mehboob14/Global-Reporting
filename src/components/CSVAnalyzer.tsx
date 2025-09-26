@@ -21,7 +21,7 @@ export default function CSVAnalyzer() {
   const currencyColumns = ["local_currency_amount", "global_currency_amount"];
 
   useEffect(() => {
-    const availableFiles = ["master_data.xlsx", "COA_PAK.xlsx", "COA_Japan_faulty.xlsx", "SAUDI.xlsx","COA_UAE.xlsx"];
+    const availableFiles = ["master_data.xlsx", "COA_PAK.xlsx", "COA_Japan_faulty.xlsx", "COA_SAUDI.xlsx","COA_UAE.xlsx"];
     setFiles(availableFiles);
     if (availableFiles.length > 0) {
       handleFileSelect(availableFiles[0]);
@@ -95,7 +95,7 @@ export default function CSVAnalyzer() {
 
         {!loading && !error && data.length > 0 && (
           <>
-            {selectedFile === "master_data.csv" ? (
+            {selectedFile === "master_data.xlsx" ? (
               <MasterDataAnalyzer data={data} />
             ) : (
               <DataTable
