@@ -18,7 +18,7 @@ export default function CSVAnalyzer() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const currencyColumns = ["local_currency_amount", "global_currency_amount"];
+  const currencyColumns = ["Local_Currency_Amount", "Global_Currency_Amount"];
 
   useEffect(() => {
     const availableFiles = ["GRP.xlsx","COA_Canada.xlsx", "COA_PAK.xlsx", "COA_Japan_faulty.xlsx", "COA_SAUDI.xlsx","COA_UAE.xlsx"];
