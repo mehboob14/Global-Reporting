@@ -20,7 +20,7 @@ export default function MasterDataAnalyzer() {
 
   useEffect(() => {
     const loadMasterData = async () => {
-      const response = await fetch("/data/master_data.xlsx");
+      const response = await fetch("/data/GRP.xlsx");
       const blob = await response.blob();
       const arrayBuffer = await blob.arrayBuffer();
       const workbook = XLSX.read(arrayBuffer, { type: "array" });
