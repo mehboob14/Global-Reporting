@@ -11,7 +11,7 @@ export default function FileSelector({ files, selectedFile, onFileSelect }: File
   return (
     <div className="border-b bg-card">
       <div className="p-4">
-        <h1 className="text-lg font-semibold text-foreground mb-4">CSV Data Analyzer</h1>
+        <h1 className="text-lg font-semibold text-foreground mb-4">Finora Global Dash</h1>
         <div className="flex gap-2 flex-wrap">
           {files.map((filename) => {
             const isSelected = selectedFile === filename;
